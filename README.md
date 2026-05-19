@@ -1,5 +1,5 @@
 # HOTEL-BOOKING-WEBSITE
-A web technology project developed using modern web development tools and technologies.
+  A web technology project developed using modern web development tools and technologies.
 
 ## TEAM LEADER : Tulasi Shet [USN NO. : 2082508371]
 
@@ -14,8 +14,7 @@ A web technology project developed using modern web development tools and techno
 
 
 ## Project Description
-
-This project is designed to provide an online hotel menu and food ordering experience. Users can browse different food categories, view menu items, check offers, and place orders through a simple and attractive interface.
+  This project is designed to provide an online hotel menu and food ordering experience. Users can browse different food categories, view menu items, check offers, and place orders through a simple and attractive interface.
 
 ## Features
 
