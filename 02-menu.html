@@ -3,13 +3,21 @@ html
 <html>
 <head>
     <title>Menu</title>
-    <link rel="stylesheet" href="13-style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
     <h1>Food Categories</h1>
 </header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="menu.html">Menu</a>
+    <a href="offers.html">Offers</a>
+    <a href="cart.html">Cart</a>
+    <a href="contact.html">Contact</a>
+</nav>
 
 <nav>
     <a href="breakfast.html">Breakfast</a>
@@ -20,26 +28,94 @@ html
 </nav>
 
 <div class="container">
-    <div class="card-container">
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836">
-            <div class="card-content">
-                <h3>Breakfast</h3>
-                <a href="breakfast.html" class="btn">View</a>
+    <div class="slideshow-container">
+        <div class="slide active">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836" alt="Breakfast">
+            <div class="slide-caption">
+                <h2>Breakfast</h2>
+                <p>Fresh morning favorites to start every day bright.</p>
+                <a href="breakfast.html" class="btn">Explore Breakfast</a>
             </div>
         </div>
 
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c">
-            <div class="card-content">
-                <h3>Lunch</h3>
-                <a href="lunch.html" class="btn">View</a>
+        <div class="slide">
+            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c" alt="Lunch">
+            <div class="slide-caption">
+                <h2>Lunch</h2>
+                <p>Wholesome lunch meals packed with flavor and energy.</p>
+                <a href="lunch.html" class="btn">Explore Lunch</a>
             </div>
         </div>
 
+        <div class="slide">
+            <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1" alt="Dinner">
+            <div class="slide-caption">
+                <h2>Dinner</h2>
+                <p>Hearty dinners made for family time and cozy evenings.</p>
+                <a href="dinner.html" class="btn">Explore Dinner</a>
+            </div>
+        </div>
+
+        <div class="slide">
+            <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb" alt="Desserts">
+            <div class="slide-caption">
+                <h2>Desserts</h2>
+                <p>Sweet treats and desserts to finish every meal with joy.</p>
+                <a href="desserts.html" class="btn">Explore Desserts</a>
+            </div>
+        </div>
+
+        <div class="slide">
+            <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd" alt="Drinks">
+            <div class="slide-caption">
+                <h2>Drinks</h2>
+                <p>Cold drinks and refreshing sips for every taste.</p>
+                <a href="drinks.html" class="btn">Explore Drinks</a>
+            </div>
+        </div>
+
+        <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+        <button class="next" onclick="changeSlide(1)">&#10095;</button>
+    </div>
+
+    <div class="slide-dots">
+        <span class="dot active" data-index="0"></span>
+        <span class="dot" data-index="1"></span>
+        <span class="dot" data-index="2"></span>
+        <span class="dot" data-index="3"></span>
+        <span class="dot" data-index="4"></span>
     </div>
 </div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
+let currentSlide = 0;
+
+function showSlide(index) {
+    if (index < 0) index = slides.length - 1;
+    if (index >= slides.length) index = 0;
+    slides[currentSlide].classList.remove('active');
+    dots[currentSlide].classList.remove('active');
+    slides[index].classList.add('active');
+    dots[index].classList.add('active');
+    currentSlide = index;
+}
+
+function changeSlide(direction) {
+    showSlide(currentSlide + direction);
+}
+
+dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+        showSlide(parseInt(dot.dataset.index, 10));
+    });
+});
+
+setInterval(() => {
+    showSlide(currentSlide + 1);
+}, 6000);
+</script>
 
 </body>
 </html>
