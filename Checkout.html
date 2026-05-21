@@ -1,0 +1,94 @@
+html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checkout</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>Checkout</h1>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="menu.html">Menu</a>
+    <a href="offers.html">Offers</a>
+    <a href="cart.html">Cart</a>
+    <a href="contact.html">Contact</a>
+</nav>
+
+<div class="container">
+
+<form id="checkoutForm" onsubmit="return false;">
+    <input type="text" placeholder="Full Name" required>
+    <input type="text" placeholder="Address" required>
+    <input type="tel" placeholder="Phone Number" required>
+
+    <div class="payment-options">
+        <p><strong>Select Payment Method</strong></p>
+        <label><input type="radio" name="payment" value="COD" checked> Cash on Delivery (Pay after placing order)</label><br>
+        <label><input type="radio" name="payment" value="UPI"> UPI (Pay now)</label>
+    </div>
+
+    <div id="upiInfo" style="display:none; margin:10px 0; padding:10px; border:1px dashed #888;">
+        <p><strong>UPI Payment</strong></p>
+        <p>Use UPI ID: <strong>merchant@upi</strong></p>
+        <p>Or scan QR at checkout (if available) and complete payment, then click <em>I've Paid</em>.</p>
+        <button id="upiPaidBtn" class="btn" type="button">I've Paid</button>
+        <button id="upiCancelBtn" class="btn" type="button">Cancel</button>
+    </div>
+
+    <div style="margin-top:12px;">
+        <button id="placeOrderBtn" class="btn" type="button">Place Order</button>
+    </div>
+</form>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    const paymentRadios = document.getElementsByName('payment');
+    const upiInfo = document.getElementById('upiInfo');
+    const placeBtn = document.getElementById('placeOrderBtn');
+    const upiPaidBtn = document.getElementById('upiPaidBtn');
+    const upiCancelBtn = document.getElementById('upiCancelBtn');
+
+    function updateUI(){
+        const selected = Array.from(paymentRadios).find(r=>r.checked).value;
+        upiInfo.style.display = (selected === 'UPI') ? 'block' : 'none';
+    }
+
+    Array.from(paymentRadios).forEach(r => r.addEventListener('change', updateUI));
+    updateUI();
+
+    // If user clicks "Place Order" and selected COD, go to success with payment=COD
+    placeBtn.addEventListener('click', function(){
+        const selected = Array.from(paymentRadios).find(r=>r.checked).value;
+        // For UPI we show the UPI info first and wait for user to confirm payment
+        if(selected === 'UPI'){
+            upiInfo.style.display = 'block';
+            upiPaidBtn.focus();
+            return;
+        }
+        // For COD proceed immediately
+        window.location.href = 'order-success.html?payment=COD';
+    });
+
+    // If user confirms they've paid via UPI
+    upiPaidBtn.addEventListener('click', function(){
+        // In a real app you'd verify payment server-side. Here we just proceed.
+        window.location.href = 'order-success.html?payment=UPI&paid=true';
+    });
+
+    upiCancelBtn.addEventListener('click', function(){
+        // revert to COD
+        document.querySelector('input[name="payment"][value="COD"]').checked = true;
+        updateUI();
+    });
+});
+</script>
+
+</body>
+</html>

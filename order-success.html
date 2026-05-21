@@ -1,0 +1,55 @@
+html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Successful</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>Order Placed Successfully</h1>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="menu.html">Menu</a>
+    <a href="offers.html">Offers</a>
+    <a href="cart.html">Cart</a>
+    <a href="contact.html">Contact</a>
+</nav>
+
+<div class="container">
+    <h2>Thank You for Ordering!</h2>
+    <p id="orderMsg">Your food will arrive soon.</p>
+    <p id="paymentMsg" style="font-weight:600;"></p>
+</div>
+
+<script>
+// Read payment info from URL params and show message
+function getParam(name){
+    const params = new URLSearchParams(window.location.search);
+    return params.get(name);
+}
+document.addEventListener('DOMContentLoaded', function(){
+    const payment = getParam('payment');
+    const paid = getParam('paid');
+    const paymentMsg = document.getElementById('paymentMsg');
+
+    if(payment === 'COD'){
+        paymentMsg.textContent = 'Payment method: Cash on Delivery. Please pay the delivery person when they arrive.';
+    } else if(payment === 'UPI'){
+        if(paid === 'true'){
+            paymentMsg.textContent = 'Payment method: UPI (payment received). Thank you!';
+        } else {
+            paymentMsg.textContent = 'Payment method: UPI (not confirmed). If you did not complete payment, please contact support.';
+        }
+    } else {
+        paymentMsg.textContent = '';
+    }
+});
+</script>
+</div>
+
+</body>
+</html>
